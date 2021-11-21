@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" >
+<head>
+    <meta charset="UTF-8" >
+    <title>Poem header title</title>
+    <style>
+        #root_container{
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        #books{
+            width: 50%;
+            border-collapse: collapse;
+        }
+
+        table{
+            margin: 25px;
+        }
+        th{
+            text-align: left;
+        }
+        th,td {
+            border-bottom: 1px solid #ddd;
+        }
+
+    </style>
+</head>
+<body>
+<div id="root_container">
+    <form method="post" th:action="@{/poem/add}" th:object="${poem}">
+        <table charset="UTF-8">
+            <tr>
+                <td>
+                    <input type="text" placeholder="author" th:field="*{author}" lang="ru"/>
+                </td>
+                <td>
+                    <input type="text" placeholder="poem_title" th:field="*{title}" lang="ru"/>
+                </td>
+                <td>
+                    <input type="text" placeholder="size (pages)" th:field="*{size}"/>
+                </td>
+                <td>
+                    <input type="submit" value="save"/>
+                </td>
+            </tr>
+        </table>
+    </form>
+
+    <table>
+        <tr>
+            <td>
+                <input type="text" placeholder="id number"/>
+            </td>
+            <td>
+                <input type="submit" value="remove"/>
+            </td>
+        </tr>
+    </table>
+
+    <table id="books">
+        <tr>
+            <th>id</th>
+            <th>author</th>
+            <th>title</th>
+            <th>size</th>
+        </tr>
+
+        <tr th:each="poem : ${poemList}" th:charset="UTF-8">
+            <td th:text="${poem.id}"></td>
+            <td th:text="${poem.author}"></td>
+            <td th:text="${poem.title}"></td>
+            <td th:text="${poem.size}"></td>
+        </tr>
+
+    </table>
+
+</div>
+
+</body>
+</html>
