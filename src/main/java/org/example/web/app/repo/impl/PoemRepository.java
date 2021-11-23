@@ -36,5 +36,10 @@ public class PoemRepository<T> implements ProjectRepository<Poem> {
         return false;
     }
 
+    @Override
+    public boolean removeItemById(String bookIdToRemove) {
+        return false;
+    }
+
 
 }

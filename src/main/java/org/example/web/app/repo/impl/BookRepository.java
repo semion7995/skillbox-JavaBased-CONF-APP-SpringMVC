@@ -27,9 +27,23 @@ public class BookRepository<T> implements ProjectRepository<Book>, ApplicationCo
 
     @Override
     public void store(Book book) {
-        book.setId(context.getBean(IdProvider.class).providerId(book));
-        logger.info("store new book: " + book);
-        repo.add(book);
+
+        if (!book.getAuthor().isEmpty() || !book.getTitle().isEmpty() || book.getSize() != null) {
+            book.setId(context.getBean(IdProvider.class).providerId(book));
+            logger.info("store new book: " + book);
+            repo.add(book);
+        }
+    }
+
+    @Override
+    public boolean removeItemById(String bookIdToRemove) {
+        for (Book book : retreiveAll()) {
+            if (book.getId().equals(bookIdToRemove)) {
+                logger.info("remove book completed: " + book);
+                return repo.remove(book);
+            }
+        }
+        return false;
     }
 
 
